@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 ThemeData themeData() {
   return ThemeData(
+    textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(primary: Colors.yellow)),
+    dialogTheme: DialogTheme(
+      backgroundColor: Colors.grey[900],
+      titleTextStyle: const TextStyle(color: Colors.white),
+      contentTextStyle: const TextStyle(color: Colors.white),
+    ),
     inputDecorationTheme: const InputDecorationTheme(
       hintStyle: TextStyle(color: Colors.grey),
       border: OutlineInputBorder(
@@ -23,6 +30,9 @@ ThemeData themeData() {
     textTheme: const TextTheme(
       bodyText2: TextStyle(color: Colors.white),
     ),
-    elevatedButtonTheme:  ElevatedButtonThemeData(style: ElevatedButton.styleFrom(primary: Colors.yellow,onPrimary: Colors.black))
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+          primary: Colors.yellow, onPrimary: Colors.black),
+    ),
   );
 }

@@ -11,13 +11,16 @@ class Controller extends ChangeNotifier{
      return UnmodifiableListView(_tasks);
 }
 
- void addtotaskList({required String title, required  task}){
+ void addtotaskList({required  title, required  task}){
      final add = TodoModel(title: title, task: task);
    _tasks.add(add);
      notifyListeners();
-     print(taskList.length);
  }
 
+ void removefromTask({required TodoModel task}){
+     _tasks.remove(task);
+     notifyListeners();
+ }
 
 
 }
