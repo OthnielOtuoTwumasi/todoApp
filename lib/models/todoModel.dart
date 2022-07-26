@@ -1,5 +1,5 @@
-class TaskModel{
+class TodoModel{
   String title;
   String task;
-  TaskModel({required this.task, required this.title});
+  TodoModel({required this.title, required this.task});
 }
