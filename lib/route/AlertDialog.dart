@@ -6,39 +6,30 @@ import '../controller/controllerRiverpod.dart';
 
 final riverpodProvider = Provider((ref) => Controller());
 
-// void alertDialogMethod(context, TodoModel todoModel) {
-//   showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return MyAlertDialog(
-//           title: titleM,
-//           task: taskM,
-//         );
-//       });
-// }
-
-class MyAlertDialog extends StatefulWidget {
-  //const MyAlertDialog(  {Key? key}) : super(key: key);
-
-  final Function() callback;
-
-  MyAlertDialog({required this.callback});
-
-  @override
-  State<MyAlertDialog> createState() => _AlertDialogState();
+ alertDialogMethod(context, Function()callback) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MyAlertDialog(
+         callback: callback,
+        );
+      });
 }
 
-class _AlertDialogState extends State<MyAlertDialog> {
+class MyAlertDialog extends StatelessWidget {
+ //const MyAlertDialog(  {Key? key}) : super(key: key);
+
+   final Function() callback;
+   MyAlertDialog({required this.callback});
+
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context,) {
     // final controller = ref.watch(riverpodProvider);
     return AlertDialog(
       title: const Text("Delete Task?"),
       actions: [
         TextButton(
-          onPressed: widget.callback,
+          onPressed: callback,
           child: const Text("Yes"),
         ),
         TextButton(

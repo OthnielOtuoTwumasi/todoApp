@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todoapp/route/AlertDialog.dart';
+
 class TaskTile extends StatelessWidget {
   // const taskTile({
   //   Key? key,
   // }) : super(key: key);
   final String title;
   final String task;
+  final bool checkedValue;
+  final Function() checked;
 
-  TaskTile({required this.title, required this.task});
+  TaskTile({
+    required this.title,
+    required this.task,
+    required this.checkedValue,
+    required this.checked,
+
+  });
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +56,7 @@ class TaskTile extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.w500,
                       letterSpacing: -0.5,
+                      decoration: checkedValue? TextDecoration.lineThrough:TextDecoration.none,
                       color: Colors.yellow[600]),
                 ),
               ),
@@ -57,6 +72,7 @@ class TaskTile extends StatelessWidget {
               ),
             ],
           ),
+         Checkbox(value: checkedValue, onChanged:checked() )
         ],
       ),
     );

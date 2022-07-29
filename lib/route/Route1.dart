@@ -19,6 +19,8 @@ class _TodoAppState extends ConsumerState<TodoApp> {
   TextEditingController title = TextEditingController();
   TextEditingController task = TextEditingController();
 
+
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -40,18 +42,30 @@ class _TodoAppState extends ConsumerState<TodoApp> {
                   builder: (context) {
                     return Column(
                       children: [
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(8, 20, 8, 5),
+                          child: Text("Let's Get Productive",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.yellow,
+                                  fontWeight: FontWeight.w500)),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
                             controller: title,
+                            style: const TextStyle(color: Colors.yellow),
                             decoration:
-                                const InputDecoration(hintText: "Title:"),
+                            const InputDecoration(hintText: "Title:"),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
                             controller: task,
+                            style: const TextStyle(color: Colors.yellow),
                             decoration: const InputDecoration(
                               hintText: "Task:",
                             ),
@@ -62,7 +76,10 @@ class _TodoAppState extends ConsumerState<TodoApp> {
                           onPressed: () {
                             setState(() {
                               controller.addtotaskList(
-                                  title: title.text, task: task.text);
+                                title: title.text,
+                                task: task.text,
+                                isChecked: false,
+                              );
                               Navigator.pop(context);
                               //print(Controller().taskList.last);
                             });
@@ -73,7 +90,6 @@ class _TodoAppState extends ConsumerState<TodoApp> {
                     );
                   });
             },
-            backgroundColor: Colors.yellow[600],
             child: const Icon(
               Icons.add,
               size: 30,
@@ -83,11 +99,9 @@ class _TodoAppState extends ConsumerState<TodoApp> {
             backgroundColor: Colors.transparent,
             centerTitle: true,
             elevation: 0,
-            title: const Text("TASKS",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 0)),
+            title: const Text(
+              "TASKS",
+            ),
           ),
           backgroundColor: Colors.grey[900],
           body: Column(
@@ -101,24 +115,36 @@ class _TodoAppState extends ConsumerState<TodoApp> {
                       return GestureDetector(
                         onLongPress: () {
                           setState(() {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return MyAlertDialog(
-                                    callback: () {
-                                      setState(() {
-                                        Navigator.pop(context);
-                                        controller.removefromTask(
-                                            task: controller.taskList[index]);
-                                      });
-                                    },
-                                  );
+                            alertDialogMethod(
+                              context,
+                                  () {
+                                setState(() {
+                                  Navigator.pop(context);
+                                  controller.removefromTask(
+                                      task: controller.taskList[index]);
                                 });
+                              },
+                            );
                           });
                         },
                         child: TaskTile(
                           title: controller.taskList[index].title,
                           task: controller.taskList[index].task,
+                          // checkbox: Checkbox(
+                          //     value:
+                          //     onChanged: (bool? value) {
+
+                          //       });
+                          //     }),
+                          checkedValue: controller.taskList[index].isChecked,
+                          checked: () {
+
+                           setState(() {
+                             controller.taskList[index].isDone();
+                           });
+
+
+                          },
                         ),
                       );
                     }),

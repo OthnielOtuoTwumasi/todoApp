@@ -1,5 +1,12 @@
 class TodoModel{
   String title;
   String task;
-  TodoModel({required this.title, required this.task});
+  bool isChecked;
+
+
+  TodoModel({required this.title, required this.task,required this.isChecked});
+
+ void isDone(){
+    isChecked = !isChecked;
+  }
 }
