@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 ThemeData themeData() {
   return ThemeData(
     textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(primary: Colors.yellow[600])),
+      style: TextButton.styleFrom(primary: Colors.yellow[600]),
+    ),
     dialogTheme: DialogTheme(
       backgroundColor: Colors.grey[900],
-      titleTextStyle:  TextStyle(
+      titleTextStyle: TextStyle(
           color: Colors.yellow[600], fontWeight: FontWeight.w600, fontSize: 20),
       contentTextStyle: const TextStyle(color: Colors.white),
     ),
@@ -25,9 +26,13 @@ ThemeData themeData() {
         ),
       ),
     ),
-    floatingActionButtonTheme:
-         FloatingActionButtonThemeData(foregroundColor: Colors.black,backgroundColor: Colors.yellow[600],),
-    bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.grey[850],),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.yellow[600],
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      backgroundColor: Colors.grey[850],
+    ),
     textTheme: const TextTheme(
       bodyText2: TextStyle(color: Colors.white),
     ),
@@ -40,9 +45,12 @@ ThemeData themeData() {
       fillColor: MaterialStateProperty.all(Colors.yellow[600]),
       checkColor: MaterialStateProperty.all(Colors.black),
     ),
-    appBarTheme:  AppBarTheme(
+    appBarTheme: AppBarTheme(
       titleTextStyle: TextStyle(
-          fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0,color: Colors.yellow[600]),
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0,
+          color: Colors.yellow[600]),
     ),
   );
 }

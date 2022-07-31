@@ -16,32 +16,32 @@ class TaskTile extends StatelessWidget {
     required this.task,
     required this.checkedValue,
     required this.checked,
-
   });
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          color: Colors.grey[900],
-          boxShadow: const [
-            BoxShadow(
-                color: Colors.black,
-                blurRadius: 15,
-                spreadRadius: 1,
-                offset: Offset(4, 4)),
-            BoxShadow(
-                color: Colors.black,
-                blurRadius: 15,
-                spreadRadius: 1,
-                offset: Offset(-4, -4)),
-          ],
-          borderRadius: const BorderRadius.all(Radius.circular(10))),
+        color: Colors.grey[900],
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 15,
+            spreadRadius: 1,
+            offset: Offset(4, 4),
+          ),
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 15,
+            spreadRadius: 1,
+            offset: Offset(-4, -4),
+          ),
+        ],
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -53,11 +53,14 @@ class TaskTile extends StatelessWidget {
                 child: Text(
                   title,
                   style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: -0.5,
-                      decoration: checkedValue? TextDecoration.lineThrough:TextDecoration.none,
-                      color: Colors.yellow[600]),
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: -0.5,
+                    decoration: checkedValue
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    color: Colors.yellow[600],
+                  ),
                 ),
               ),
               Padding(
@@ -72,7 +75,10 @@ class TaskTile extends StatelessWidget {
               ),
             ],
           ),
-         Checkbox(value: checkedValue, onChanged:checked() )
+          Checkbox(
+            value: checkedValue,
+            onChanged: checked(),
+          )
         ],
       ),
     );

@@ -6,24 +6,28 @@ import '../controller/controllerRiverpod.dart';
 
 final riverpodProvider = Provider((ref) => Controller());
 
- alertDialogMethod(context, Function()callback) {
+alertDialogMethod(context, Function() callback) {
   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return MyAlertDialog(
-         callback: callback,
-        );
-      });
+    context: context,
+    builder: (BuildContext context) {
+      return MyAlertDialog(
+        callback: callback,
+      );
+    },
+  );
 }
 
 class MyAlertDialog extends StatelessWidget {
- //const MyAlertDialog(  {Key? key}) : super(key: key);
+  //const MyAlertDialog(  {Key? key}) : super(key: key);
 
-   final Function() callback;
-   MyAlertDialog({required this.callback});
+  final Function() callback;
+
+  MyAlertDialog({required this.callback});
 
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     // final controller = ref.watch(riverpodProvider);
     return AlertDialog(
       title: const Text("Delete Task?"),
