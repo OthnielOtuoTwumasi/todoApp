@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todoapp/controller/controllerRiverpod.dart';
 
-import 'package:todoapp/route/todo_alert_dialog.dart';
+import 'package:todoapp/models/todo_app_model.dart';
+import 'package:todoapp/controller/todo_app_controller.dart';
+import 'package:todoapp/route/todo_app_alert_dialog.dart';
 
-import 'todo_task_tile.dart';
+import 'todo_app_task_tile.dart';
 
-class Todo_App_Route1 extends ConsumerStatefulWidget {
-  const Todo_App_Route1({Key? key}) : super(key: key);
+class TodoAppRoute1 extends ConsumerStatefulWidget {
+  const TodoAppRoute1({Key? key}) : super(key: key);
 
   @override
   _TodoAppState createState() => _TodoAppState();
 }
 
-class _TodoAppState extends ConsumerState<Todo_App_Route1> {
-  TextEditingController todo_title = TextEditingController();
-  TextEditingController todo_task = TextEditingController();
+class _TodoAppState extends ConsumerState<TodoAppRoute1> {
+  TextEditingController todoTitle = TextEditingController();
+  TextEditingController todoTask = TextEditingController();
 
   @override
   void dispose() {
     // TODO: implement dispose
-    todo_title.dispose();
-    todo_task.dispose();
+    todoTitle.dispose();
+    todoTask.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    final todo_app_controller = ref.watch(riverpodProvider);
+  Widget build(
+    BuildContext context,
+  ) {
+    final todoAppController = ref.watch(todoAppNotifier);
+    final controllerTodoApp = ref.watch(todoAppNotifier.notifier);
+
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -52,17 +57,23 @@ class _TodoAppState extends ConsumerState<Todo_App_Route1> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         textCapitalization: TextCapitalization.sentences,
-                        controller: todo_title,
-                        style: const TextStyle(color: Colors.yellow),
-                        decoration: const InputDecoration(hintText: "Title:"),
+                        controller: todoTitle,
+                        style: const TextStyle(
+                          color: Colors.yellow,
+                        ),
+                        decoration: const InputDecoration(
+                          hintText: "Title:",
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         textCapitalization: TextCapitalization.sentences,
-                        controller: todo_task,
-                        style: const TextStyle(color: Colors.yellow),
+                        controller: todoTask,
+                        style: const TextStyle(
+                          color: Colors.yellow,
+                        ),
                         decoration: const InputDecoration(
                           hintText: "Task:",
                         ),
@@ -73,13 +84,13 @@ class _TodoAppState extends ConsumerState<Todo_App_Route1> {
                       onPressed: () {
                         setState(
                           () {
-                            todo_app_controller.addtotaskList(
-                              title: todo_title.text,
-                              task: todo_task.text,
-                              isChecked: false,
-                            );
+                            controllerTodoApp.addtotaskList(
+                                title: todoTitle.text,
+                                task: todoTask.text,
+                                isChecked: false);
                             Navigator.pop(context);
-                            //print(Controller().taskList.last);
+                            todoTitle.clear();
+                            todoTask.clear();
                           },
                         );
                       },
@@ -110,41 +121,37 @@ class _TodoAppState extends ConsumerState<Todo_App_Route1> {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: todo_app_controller.taskList.length,
+                itemCount: todoAppController.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onLongPress: () {
-                      setState(
-                        () {
+
                           alertDialogMethod(
                             context,
                             () {
-                              setState(
-                                () {
-                                  Navigator.pop(context);
-                                  todo_app_controller.removefromTask(
-                                      task:
-                                          todo_app_controller.taskList[index]);
-                                },
+                             Navigator.pop(context);
+                              controllerTodoApp.removefromTask(
+                                todoAppController[index],
                               );
+
                             },
                           );
-                        },
-                      );
+
                     },
-                    child: Todo_Task_Tile(
-                        title: todo_app_controller.taskList[index].title,
-                        task: todo_app_controller.taskList[index].task,
+                    child: TodoAppTaskTile(
+                        title: todoAppController[index].title,
+                        task: todoAppController[index].task,
                         // checkbox: Checkbox(
                         //     value:
                         //     onChanged: (bool? value) {
 
                         //       });
                         //     }),
-                        checkedValue:
-                            todo_app_controller.taskList[index].isChecked,
+                        checkedValue: todoAppController[index].isChecked,
                         checked: () {
-                          todo_app_controller.taskList[index].isDone();
+                          todoAppController[index].isChecked
+                              ? todoAppController[index].isChecked = false
+                              : todoAppController[index].isChecked = false;
                         }),
                   );
                 },
